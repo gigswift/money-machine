@@ -23,14 +23,13 @@ class DataCollectorAgent(BaseAgent):
         """Initialize data collection agent"""
         self.logger.info("Initializing Data Collector Agent...")
         
-        # Check if we have at least one API key
+        # Check if we have API keys, warn if not but continue in demo mode
         if not any([
             self.config.ALPHA_VANTAGE_API_KEY,
             self.config.FINNHUB_API_KEY,
             self.config.IEX_CLOUD_API_KEY
         ]):
-            self.logger.error("No API keys found. Please set at least one in .env file")
-            return False
+            self.logger.warning("No API keys found. Running in demo mode with yfinance data")
             
         # Initialize data storage structure
         for symbol in self.config.SYMBOLS_TO_TRACK:
